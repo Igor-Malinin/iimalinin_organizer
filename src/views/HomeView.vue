@@ -1,18 +1,34 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h2 class="home__title">
+      Главная страница отображает виджеты календаря и списка дел.
+      Для создания событий в календаре, списка дел или редактирования
+      существующих откройте соответствующую вкладку
+    </h2>
+    <calendar-widget/>
+    <todo-widget/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import CalendarWidget from "@/components/calendar/CalendarWidget.vue";
+import TodoWidget from "@/components/todolist/TodoWidget.vue";
 
 export default {
   name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+  components: {TodoWidget, CalendarWidget}
 }
 </script>
+
+<style lang="scss" scoped>
+
+.home {
+  padding: 0 60px;
+}
+
+.home__title {
+  margin-top: 20px;
+  text-align: center;
+}
+
+</style>
