@@ -1,29 +1,27 @@
 <template>
   <div class="personal_account">
-    <div class="personal_account__inner">
-      <h2 class="personal_account__title">Личный кабинет</h2>
-      <div class="personal__info">
-        <div class="avatar_n_text">
-          <div class="avatar_container">
-            <input type="file" ref="fileInput" @change="onFileChange" style="display: none">
-            <img class="personal__img" :src="accountData.img" alt="Изображение" @click="openFilePicker">
-            <a @click="openFilePicker">Изменить</a>
-          </div>
-          <div class="personal_text_data">
-            <p><strong>Фамилия:</strong> {{ accountData.surname }}</p>
-            <p><strong>Имя:</strong> {{ accountData.name }}</p>
-            <p><strong>Отчество:</strong> {{ accountData.patronymic }}</p>
-            <p><strong>Дата рождения:</strong> {{ accountData.birthDate }}</p>
-            <p><strong>Возраст:</strong> {{ accountData.age }}</p>
-          </div>
+    <main-window msg="Личный кабинет" :style="setStyle()">
+      <div class="avatar_n_text">
+        <div class="avatar_container">
+          <input type="file" ref="fileInput" @change="onFileChange">
+          <img class="personal__img" :src="accountData.img" alt="Изображение" @click="openFilePicker">
+          <a @click="openFilePicker">Изменить</a>
         </div>
-        <div class="chart_container">
-          <div class="finished_events__chart">
-            <canvas ref="chartCanvas" class="pie_chart"></canvas>
-          </div>
+        <div class="personal_text_data">
+          <p><strong>Фамилия:</strong> {{ accountData.surname }}</p>
+          <p><strong>Имя:</strong> {{ accountData.name }}</p>
+          <p><strong>Отчество:</strong> {{ accountData.patronymic }}</p>
+          <p><strong>Дата рождения:</strong> {{ accountData.birthDate }}</p>
+          <p><strong>Возраст:</strong> {{ accountData.age }}</p>
         </div>
       </div>
-    </div>
+      <div class="chart_container">
+        <div class="finished_events__chart">
+          <canvas ref="chartCanvas" class="pie_chart"></canvas>
+        </div>
+      </div>
+    </main-window>
+
     <main-modal msg="Фото Обновлено" v-model:show="isUpdatedImg" />
   </div>
 </template>
@@ -71,6 +69,9 @@ export default {
           },
         }}}
       })
+    },
+    setStyle() {
+      return 'width: 70%; flex-direction: row; margin: 0 auto; padding: 50px; background-color: #fafdff; justify-content: space-between;'
     }
   }
 }
@@ -78,32 +79,12 @@ export default {
 
 <style lang="scss" scoped>
 
-.personal_account__inner {
-  padding: 20px 60px 40px;
-}
-
-.personal_account__title {
-  text-align: center;
-  margin: 10px 0 30px;
-}
-
-.personal__info {
-  width: 70%;
-  display: flex;
-  justify-content: space-between;
-  //align-items: center;
-  margin: 0 auto;
-  background-color: #fafdff;
+.personal_text_data {
+  border: 1px solid #6696c9;
+  padding: 10px;
   border-radius: 4px;
-  padding: 50px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-  .personal_text_data {
-    border: 1px solid #6696c9;
-    padding: 10px;
-    border-radius: 4px;
-    p {
-      padding: 5px 20px;
-    }
+  p {
+    padding: 5px 20px;
   }
 }
 
@@ -116,6 +97,9 @@ export default {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
+  input {
+    display: none
+  }
   a {
     cursor: pointer;
   }

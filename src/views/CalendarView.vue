@@ -1,43 +1,39 @@
 <template>
   <div class="calendar">
-    <div class="calendar__inner">
-      <h2 class="calendar__title">Календарь</h2>
-      <div class="calendar__content">
-        <div class="calendar__content_elements">
-          <calendar-header
-              @prevMonth="prevMonth"
-              @nextMonth="nextMonth"
-              @updateSelectedDate="updateSelectedDate"
-              :selectedDate="selectedDate"
-              :currentDate="currentDate"
-          />
-          <calendar-numbers
-              :weekdays="weekdays"
-              :days="days"
-              :calendarEvents="getCalendarEvents"
-              @openModalEvents="openModalEvents"
-              @updateEvent="updateEvent"
-          />
-          <div class="calendar__content_footer">
-            <button class="btn__create_event" @click="openCreateEvent">Создать событие</button>
-          </div>
+    <main-window msg="Календарь" :style="'background-color: #f2f9ff'">
+        <calendar-header
+            @prevMonth="prevMonth"
+            @nextMonth="nextMonth"
+            @updateSelectedDate="updateSelectedDate"
+            :selectedDate="selectedDate"
+            :currentDate="currentDate"
+        />
+        <calendar-numbers
+            :weekdays="weekdays"
+            :days="days"
+            :calendarEvents="getCalendarEvents"
+            @openModalEvents="openModalEvents"
+            @updateEvent="updateEvent"
+        />
+        <div class="calendar__content_footer">
+          <button class="btn__create_event" @click="openCreateEvent">Создать событие</button>
         </div>
 
-        <main-modal v-model:show="isCreatingEvent">
-          <calendar-event-form
-              @createEvent="createEvent"
-          />
-        </main-modal>
+    </main-window>
 
-        <main-modal  v-model:show="isOpenModalEvents">
-          <calendar-events-list
-              :calendarEvents="eventsList"
-          />
-        </main-modal>
+    <main-modal v-model:show="isCreatingEvent">
+      <calendar-event-form
+          @createEvent="createEvent"
+      />
+    </main-modal>
 
-        <main-modal msg="Событие Сохранено" v-model:show="isCreatedEvent" />
-      </div>
-    </div>
+    <main-modal  v-model:show="isOpenModalEvents">
+      <calendar-events-list
+          :calendarEvents="eventsList"
+      />
+    </main-modal>
+
+    <main-modal msg="Событие Сохранено" v-model:show="isCreatedEvent" />
   </div>
 </template>
 
@@ -57,26 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 
-.calendar__inner {
-  padding: 20px 60px;
-}
-
-.calendar__title {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
 .calendar__content {
-  width: 90%;
-  margin: 0 auto;
-}
-
-.calendar__content_elements {
-  display: flex;
-  flex-direction: column;
-  background-color: #f2f9ff;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.20);
-  border-radius: 4px;
 }
 
 .calendar__content_footer {

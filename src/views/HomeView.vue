@@ -23,11 +23,10 @@ export default {
 <style lang="scss" scoped>
 
 .home {
-  padding: 0 60px;
+  padding: 30px 60px;
 }
 
 .home__title {
-  margin-top: 20px;
   text-align: center;
 }
 

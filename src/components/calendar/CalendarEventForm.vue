@@ -5,31 +5,70 @@
       <h4 class="title_edit" v-else>Редактирование события</h4>
       <div class="event_form__group name">
         <label for="event_name">Наименование:</label>
-        <main-textarea class="event_name" :style="'padding-right: 40px'" id="event_name" type="text" v-model="calendarEvent.eventName" :readonly="readableOnlyCalendarEvent" :maxLength="256" required />
+        <main-textarea
+          class="event_name"
+          :style="'padding-right: 40px'"
+          id="event_name"
+          type="text"
+          v-model="calendarEvent.eventName"
+          :readonly="readableOnlyCalendarEvent"
+          :maxLength="256"
+          required
+        />
       </div>
       <div class="event_form__group">
         <label for="event_start">Дата и время начала:</label>
-        <main-input id="event_start" type="datetime-local" v-model="calendarEvent.eventStart" :min="minStartDate" :max="maxStartDate" :readonly="readableOnlyCalendarEvent" required />
+        <main-input
+          id="event_start"
+          type="datetime-local"
+          v-model="calendarEvent.eventStart"
+          :min="minStartDate"
+          :max="maxStartDate"
+          :readonly="readableOnlyCalendarEvent"
+          required
+        />
       </div>
       <div class="event_form__group">
         <label for="event_end">Дата и время окончания:</label>
-        <main-input id="event_end" type="datetime-local" v-model="calendarEvent.eventEnd" :min="minEndDate" :readonly="isAllDay || readableOnlyCalendarEvent" required />
+        <main-input
+          id="event_end"
+          type="datetime-local"
+          v-model="calendarEvent.eventEnd"
+          :min="minEndDate"
+          :readonly="isAllDay || readableOnlyCalendarEvent"
+          required
+        />
       </div>
       <div class="event_form__group check_color">
         <div class="checkbox_allday">
           <label for="event_allday">Целый день:</label>
-          <input id="event_allday" type="checkbox" v-model="isAllDay" :disabled="readableOnlyCalendarEvent" @change="updateEndDate">
+          <input
+            id="event_allday"
+            type="checkbox"
+            v-model="isAllDay"
+            :disabled="readableOnlyCalendarEvent"
+            @change="updateEndDate">
         </div>
         <div class="color_picker">
           <label for="color_pick">Цвет:</label>
-          <input class="input_color" type="color" id="head" name="color_pick" :disabled="readableOnlyCalendarEvent" v-model="calendarEvent.color">
+          <input
+            class="input_color"
+            type="color"
+            id="head"
+            name="color_pick"
+            :disabled="readableOnlyCalendarEvent"
+            v-model="calendarEvent.color">
         </div>
       </div>
       <div class="event_form__error" v-if="errorToggle">Пожалуйста заполните все обязательные поля</div>
       <div class="event_form__error" v-if="timeErrorToggle">Пожалуйста введите корректное время</div>
       <div class="control__btns">
-        <main-button class="btn__form_control" type="button" @click="resetForm" :disabled="readableOnlyCalendarEvent">Отменить</main-button>
-        <main-button class="btn__form_control" type="button" @click="saveEvent" :disabled="readableOnlyCalendarEvent">Сохранить</main-button>
+        <main-button class="btn__form_control" type="button" @click="resetForm" :disabled="readableOnlyCalendarEvent">
+          Отменить
+        </main-button>
+        <main-button class="btn__form_control" type="button" @click="saveEvent" :disabled="readableOnlyCalendarEvent">
+          Сохранить
+        </main-button>
       </div>
     </form>
   </div>

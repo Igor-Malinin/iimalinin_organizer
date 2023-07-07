@@ -1,19 +1,21 @@
 <template>
-  <div class="calendar_numbers">
+  <div class="numbers">
     <div class="weekdays">
       <div class="weekday" v-for="weekday in weekdays" :key="weekday">{{ weekday }}</div>
     </div>
-    <div class="days">
-      <button
-        v-for="(date, index) in days"
-        :key="index" class="btn__day"
-        :class="{'empty': date === undefined, 'has_event': hasEvent(date), 'not_widget': !widgetFlag}"
-        :style="`background-color: ${getColor(date)}`"
-        @click="openModalEvents(date)"
-      >
-        <span>{{ date === undefined ? '' : date.day }}</span>
-        <span>{{ date === undefined ? '' : hasEvent(date) && !widgetFlag ? `События: ${getEvents(date).length}` : '' }}</span>
-      </button>
+    <div class="calendar_numbers">
+      <div class="days">
+        <button
+          v-for="(date, index) in days"
+          :key="index" class="btn__day"
+          :class="setClasses(date)"
+          :style="`background-color: ${setColor(date)}`"
+          @click="openModalEvents(date)"
+        >
+          <span>{{ date === undefined ? '' : date.day }}</span>
+          <span>{{ eventsSpan(date) }}</span>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -54,7 +56,24 @@ export default {
       let checkEvent = this.calendarEvents.filter(event => this.hasDate(event, date)).map(event => event)
       return checkEvent.length > 0 ? checkEvent : ''
     },
-    getColor(date) {
+    pastEvent(date) {
+      date = new Proxy({...date}, {})
+      return new Date(date.year, date.month - 1, date.day) < new Date() ? this.hasEvent(date) : false
+    },
+    eventsSpan(date) {
+      return date === undefined ? '' :
+          this.hasEvent(date) && !this.widgetFlag ?
+              `${this.pastEvent(date) ? 'Прошло' : 'События'}: ${this.getEvents(date).length}` : ''
+    },
+    setClasses(date) {
+      return {
+        'empty': date === undefined,
+        'has_event': this.hasEvent(date),
+        'past_event': this.pastEvent(date),
+        'not_widget': !this.widgetFlag
+      }
+    },
+    setColor(date) {
       let color = ''
       this.hasEvent(date) ?
           color = this.getEvents(date)[0].color :
@@ -72,18 +91,28 @@ export default {
 
 <style lang="scss" scoped>
 
+.numbers {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  //justify-content: space-between;
+}
+
 .calendar_numbers {
   padding: 10px;
 }
 
 .weekdays {
+  width: 100%;
   display: flex;
+  padding: 8px;
+  background-color: #317ac5;
+  color: #fffaf5;
 }
 
 .weekday {
   flex: 1;
   text-align: center;
-  margin-bottom: 6px;
 }
 
 .days {
@@ -139,14 +168,26 @@ button:active {
 }
 
 .has_event {
-  background-color: #80be91;
-  color: #313131;
   cursor: pointer;
   &:hover {
     box-shadow: inset 0 0 10px #888888;
   }
   &:active {
     box-shadow: inset 0 0 20px #a6a6a6;
+    cursor: pointer;
+  }
+}
+
+.past_event {
+  background-color: #e1e6e8 !important;
+  border: 1px solid #05d07b;
+  color: #039a44;
+  cursor: pointer;
+  &:hover {
+    box-shadow: inset 0 0 10px #76c99a;
+  }
+  &:active {
+    box-shadow: inset 0 0 20px #76c99a;
     cursor: pointer;
   }
 }

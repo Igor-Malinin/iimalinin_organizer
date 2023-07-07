@@ -49,7 +49,7 @@ export default {
       this.isEditing = !this.isEditing
     },
     separateDate(date) {
-      return {date: date.slice(0,10), time: date.slice(11,16)}
+      return {date: `${date.slice(8,10)}.${date.slice(5,7)}.${date.slice(0,4)}`, time: date.slice(11,16)}
     },
   }
 }

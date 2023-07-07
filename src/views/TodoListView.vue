@@ -1,22 +1,19 @@
 <template>
   <div class="todolist">
-    <div class="todolist__inner">
-      <h2 class="todolist__title">Список дел</h2>
-      <div class="todolist__todos">
+    <main-window msg="Список дел" :style="'background-color: #caf1ff'">
         <todo-list-header class="todo__header" />
-        <todo-list
-            :todoList="todoList"
-        />
+        <todo-list class="todo_list" :todoList="todoList" />
         <main-button class="btn__todolist_create" @click="openCreateTodoItem">Создать</main-button>
-      </div>
-      <main-modal v-model:show="isCreatingTodoItem">
-        <todo-list-form
-          :calendarEvents="getCalendarEvents"
-          @createTodoItem="createTodoItem"
-        />
-      </main-modal>
-      <main-modal msg="Дело Сохранено" v-model:show="isCreatedTodo" />
-    </div>
+    </main-window>
+
+    <main-modal v-model:show="isCreatingTodoItem">
+      <todo-list-form
+        :calendarEvents="getCalendarEvents"
+        @createTodoItem="createTodoItem"
+      />
+    </main-modal>
+
+    <main-modal msg="Дело Сохранено" v-model:show="isCreatedTodo" />
   </div>
 </template>
 
@@ -36,28 +33,11 @@ export default {
 
 <style lang="scss" scoped>
 
-.todolist__inner {
-  padding: 30px 80px 50px;
+.todo_list {
+  max-height: 450px;
+  border-bottom: 1px solid #2c3e50;
+  overflow-x: scroll;
 }
-
-.todolist__title {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
-.todo__header {
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-.todolist__todos {
-  display: flex;
-  flex-direction: column;
-  background-color: #caf1ff;
-  box-shadow: 0 0 30px rgb(0, 0, 0, .15);
-  border-radius: 4px;
-}
-
 
 .btn__todolist_create {
   font-size: 16px;
@@ -74,4 +54,5 @@ export default {
     background-color: #6a9cbd;
   }
 }
+
 </style>
