@@ -6,7 +6,7 @@ export const personalAccountModule = {
       name: 'Игорь',
       patronymic: 'Игоревич',
       birthDate: '25.08.1999',
-      age: 23,
+      age: 24,
       img: 'https://images.wallpaperscraft.ru/image/single/tigr_art_goluboglazyj_136938_2780x2780.jpg'
     }
   }),

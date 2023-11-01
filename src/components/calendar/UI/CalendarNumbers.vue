@@ -58,9 +58,16 @@ export default {
     },
     pastEvent(date) {
       date = new Proxy({...date}, {})
-      return new Date(date.year, date.month - 1, date.day) < new Date() ? this.hasEvent(date) : false
+      let evaluationDate = new Date()
+      new Date(date.year, date.month - 1, date.day) <
+      new Date(evaluationDate.getFullYear(), evaluationDate.getMonth(), evaluationDate.getDate()-1, 23, 59, 59)
+          ?
+         this.hasEvent(date)
+          :
+         false
     },
     eventsSpan(date) {
+
       return date === undefined ? '' :
           this.hasEvent(date) && !this.widgetFlag ?
               `${this.pastEvent(date) ? 'Прошло' : 'События'}: ${this.getEvents(date).length}` : ''
